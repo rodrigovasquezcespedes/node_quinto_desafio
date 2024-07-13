@@ -2,4 +2,5 @@ DB_USER=tu_usuario_bd
 DB_HOST=localhost
 DB_DATABASE=joyas
 DB_PASSWORD=tu_contraseña_bd
-DB_PORT=5432
+DB_PORT=tu_puerto_db
+PORT=tu_puerto_servidor
