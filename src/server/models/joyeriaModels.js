@@ -6,13 +6,16 @@ const obtenerTodasLasJoyas = async (limites, offset, ordenPor) => {
   return result.rows;
 };
 
-const filtrarJoyas = async (precioMin, precioMax, categoria, metal) => {
-  const query = `SELECT * FROM inventario WHERE precio >= $1 AND precio <= $2 AND categoria = $3 AND metal = $4`;
+const filtroJoyas = async (precioMin, precioMax, categoria, metal) => {
+  const query = `SELECT * FROM inventario WHERE precio >= $1 OR precio <= $2 OR categoria = $3 OR metal = $4`;
   const result = await pool.query(query, [precioMin, precioMax, categoria, metal]);
   return result.rows;
 };
 
-module.exports = {
-  obtenerTodasLasJoyas,
-  filtrarJoyas,
-};
+const filtroJoyastId = async (id) => {
+    const query = 'SELECT * FROM inventario WHERE id=$1'
+    const result = await pool.query(query, [id])
+    return result.rows;
+}
+
+module.exports = { obtenerTodasLasJoyas, filtroJoyas, filtroJoyastId };
