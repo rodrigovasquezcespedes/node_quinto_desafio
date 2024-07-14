@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const joyeriaController = require('../controllers/joyeriaControllers');
+const express = require('express')
+const router = express.Router()
+const joyeriaController = require('../controllers/joyeriaControllers')
 
-router.get('/joyas', joyeriaController.obtenerJoyas);
-router.get('/joyas/:id', joyeriaController.obtenerJoyaPorId);
-router.get('/joyas/filtros', joyeriaController.filtrarJoyas);
+router.get('/joyas', joyeriaController.obtenerJoyas)
+router.get('/joyas/:id', joyeriaController.obtenerJoyaPorId)
+router.get('/joyas/filtros', joyeriaController.filtrarJoyas)
 
-module.exports = router;
+module.exports = router
