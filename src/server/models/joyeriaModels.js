@@ -10,42 +10,33 @@ const obtenerTodasLasJoyas = async (limits, page, order) => {
 }
 
 const filtroJoyas = async (precioMin, precioMax, categoria, metal) => {
+  let query = 'SELECT * FROM inventario'
   const filtro = []
   const values = []
 
-  if (precioMin !== undefined) {
-    filtro.push('precio >= %L')
+  if (precioMin) {
     values.push(precioMin)
+    filtro.push(`precio >= $${values.length}`)
   }
-
-  if (precioMax !== undefined) {
-    filtro.push('precio <= %L')
+  if (precioMax) {
     values.push(precioMax)
+    filtro.push(`precio <= $${values.length}`)
   }
-
   if (categoria) {
-    filtro.push('categoria = %L')
     values.push(categoria)
+    filtro.push(`categoria = $${values.length}`)
   }
-
   if (metal) {
-    filtro.push('metal = %L')
     values.push(metal)
+    filtro.push(`metal = $${values.length}`)
   }
 
-  let query = 'SELECT * FROM inventario'
   if (filtro.length > 0) {
-    query = format(query + ' WHERE ' + filtro.join(' AND '), ...values)
+    query += ' WHERE ' + filtro.join(' AND ')
   }
 
-  const result = await pool.query(query)
-  return result.rows
+  const result = await pool.query(query, values)
+  return result.rows || []
 }
 
-const obtenerJoyaPorId = async (id) => {
-  const query = 'SELECT * FROM inventario WHERE id = $1'
-  const result = await pool.query(query, [id])
-  return result.rows[0]
-}
-
-module.exports = { obtenerTodasLasJoyas, filtroJoyas, obtenerJoyaPorId }
+module.exports = { obtenerTodasLasJoyas, filtroJoyas }
