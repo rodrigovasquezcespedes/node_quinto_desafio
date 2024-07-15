@@ -13,7 +13,7 @@ const obtenerJoyas = async (req, res) => {
   }
 }
 const filtrarJoyas = async (req, res) => {
-  const { precioMin, precioMax, categoria, metal } = req.query
+  const { precioMin = 0, precioMax = 0, categoria = 'collar', metal = 'oro' } = req.query
   try {
     const joyas = await JoyeriaModel.filtroJoyas(precioMin, precioMax, categoria, metal)
     if (!joyas.length) {
