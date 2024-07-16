@@ -14,13 +14,13 @@ const obtenerJoyas = async (req, res) => {
 }
 
 const filtrarJoyas = async (req, res) => {
-  const { precioMin = 0, precioMax = 0, categoria = 'collar', metal = 'oro' } = req.query
+  const { id = 0, precioMin = 0, precioMax = 0, categoria = 'collar', metal = 'oro', limits = 10, page = 1, order = 'id_ASC' } = req.query
   try {
-    const joyas = await JoyeriaModel.filtroJoyas(precioMin, precioMax, categoria, metal)
+    const joyas = await JoyeriaModel.filtroJoyas(id, precioMin, precioMax, categoria, metal)
     if (!joyas.length) {
       return res.status(404).json({ mensaje: 'No se encontraron joyas con los filtros proporcionados' })
     }
-    const respuesta = generarHATEOAS(req, joyas)
+    const respuesta = generarHATEOAS(req, joyas, limits, page, order, precioMin, precioMax, categoria, metal)
     res.json(respuesta)
   } catch (err) {
     console.error(err.message)

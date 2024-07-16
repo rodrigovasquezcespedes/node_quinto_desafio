@@ -9,11 +9,15 @@ const obtenerTodasLasJoyas = async (limits, page, order) => {
   return result.rows
 }
 
-const filtroJoyas = async (precioMin, precioMax, categoria, metal) => {
+const filtroJoyas = async (id, precioMin, precioMax, categoria, metal) => {
   let query = 'SELECT * FROM inventario'
   const filtro = []
   const values = []
 
+  if (id) {
+    values.push(id)
+    filtro.push(`id = $${values.length}`)
+  }
   if (precioMin) {
     values.push(precioMin)
     filtro.push(`precio >= $${values.length}`)

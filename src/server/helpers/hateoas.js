@@ -1,9 +1,11 @@
-const generarHATEOAS = (req, items, limits, page, order) => {
+const generarHATEOAS = (req, items, limits, page, order, precioMin, precioMax, categoria, metal, totalJoyas, totalStock) => {
   return {
-    items: items.map(item => ({
+    totalJoyas,
+    totalStock,
+    result: items.map(item => ({
       ...item,
       links: {
-        self: `${req.protocol}://${req.get('host')}/joyas/${item.id}`
+        self: `${req.protocol}://${req.get('host')}/joyas/filtros?id=${item.id}&precio_min=${precioMin}&precio_max=${precioMax}&categoria=${categoria}&metal=${metal}`
       }
     })),
     _links: {
