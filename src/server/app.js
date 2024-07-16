@@ -1,12 +1,12 @@
 const express = require('express')
 const cors = require('cors')
 const joyeriaRoutes = require('./routers/joyeriaRouters')
-const logger = require('./middlewares/logger')
+const registraRuta = require('./middlewares/registraRuta')
 const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(logger)
+app.use(registraRuta)
 
 // Rutas
 app.use('/', joyeriaRoutes)

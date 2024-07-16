@@ -39,4 +39,23 @@ const filtroJoyas = async (precioMin, precioMax, categoria, metal) => {
   return result.rows || []
 }
 
-module.exports = { obtenerTodasLasJoyas, filtroJoyas }
+const insertarJoya = async (joya) => {
+  const { nombre, categoria, metal, precio, stock } = joya
+  const query = 'INSERT INTO inventario (nombre, categoria, metal, precio, stock) VALUES ($1, $2, $3, $4, $5) RETURNING *'
+  const result = await pool.query(query, [nombre, categoria, metal, precio, stock])
+  return result.rows[0]
+}
+const actualizarJoya = async (id, joya) => {
+  const { nombre, categoria, metal, precio, stock } = joya
+  const query = 'UPDATE inventario SET nombre = $1, categoria = $2, metal = $3, precio = $4, stock = $5 WHERE id = $6 RETURNING *'
+  const result = await pool.query(query, [nombre, categoria, metal, precio, stock, id])
+  return result.rows[0]
+}
+
+const eliminarJoya = async (id) => {
+  const query = 'DELETE FROM inventario WHERE id = $1 RETURNING *'
+  const result = await pool.query(query, [id])
+  return result.rows[0]
+}
+
+module.exports = { obtenerTodasLasJoyas, filtroJoyas, insertarJoya, actualizarJoya, eliminarJoya }
