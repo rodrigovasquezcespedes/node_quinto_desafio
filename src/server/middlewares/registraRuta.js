@@ -1,5 +1,7 @@
 const logger = (req, res, next) => {
-  console.log(`Ruta accedida: ${req.originalUrl}`)
+  const { method, url } = req
+  const timestamp = new Date().toISOString()
+  console.log(`[${timestamp}] 'Metodo'${method} - 'Ruta' ${url}`)
   next()
 }
 

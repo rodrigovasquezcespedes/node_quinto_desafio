@@ -6,7 +6,7 @@ const obtenerTodasLasJoyas = async (limits, page, order) => {
   const offset = Math.abs(page > 0 ? page - 1 : 0) * limits
   const query = format('SELECT * FROM inventario ORDER BY %s %s LIMIT %s OFFSET %s', colum, sort, limits, offset)
   const result = await pool.query(query)
-  return result.rows
+  return result.rows || []
 }
 
 const filtroJoyas = async (id, precioMin, precioMax, categoria, metal) => {
