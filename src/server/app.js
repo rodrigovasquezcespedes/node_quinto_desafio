@@ -8,10 +8,8 @@ app.use(cors())
 app.use(express.json())
 app.use(registraRuta)
 
-// Rutas
 app.use('/', joyeriaRoutes)
 
-// Middleware de manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).send('¡Algo salió mal!')
